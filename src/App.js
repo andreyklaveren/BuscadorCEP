@@ -18,7 +18,9 @@ function App() {
       setCep(response.data)
       setInput('')
     } catch {
-      alert('Erro ao buscar')
+      alert(
+        'Erro ao buscar, use apenas números e obrigatóriamente 8 (oito) digitos'
+      )
       setInput('')
     }
   }
@@ -30,9 +32,15 @@ function App() {
       <div className="containerInput">
         <input
           type="text"
-          placeholder="Digite seu cep..."
+          placeholder="Digite seu CEP..."
           value={input}
           onChange={e => setInput(e.target.value)}
+          //adiciona a função de pesquisa pela tecla 'enter'
+          onKeyDown={e => {
+            if (e.keyCode === 13) {
+              handleSearch()
+            }
+          }}
         />
         <button className="buttonSearch" onClick={handleSearch}>
           <FiSearch size={25} color={'#FFF'} />
