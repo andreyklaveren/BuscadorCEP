@@ -19,7 +19,7 @@ function App() {
       setInput('')
     } catch {
       alert(
-        'Erro ao buscar, use apenas números e obrigatóriamente 8 (oito) digitos'
+        'Erro ao buscar, verifique se o CEP digitado está correto e use 8 digitos (apenas números)'
       )
       setInput('')
     }
@@ -28,19 +28,19 @@ function App() {
   return (
     <div className="container">
       <h1 className="title">Buscador CEP</h1>
-
       <div className="containerInput">
         <input
           type="text"
           placeholder="Digite seu CEP..."
           value={input}
           onChange={e => setInput(e.target.value)}
-          //adiciona a função de pesquisa pela tecla 'enter'
-          onKeyDown={e => {
-            if (e.keyCode === 13) {
-              handleSearch()
-            }
-          }}
+          onKeyDown={
+            e => {
+              if (e.key === 'Enter') {
+                handleSearch()
+              }
+            } //adiciona a função de pesquisa pela tecla 'enter'}
+          }
         />
         <button className="buttonSearch" onClick={handleSearch}>
           <FiSearch size={25} color={'#FFF'} />
@@ -51,8 +51,9 @@ function App() {
         <main className="main">
           <h2>CEP: {cep.cep}</h2>
           <span>{cep.logradouro}</span>
-          <span>Complemento: {cep.complemento}</span>
-          <span>{cep.bairro}</span>
+          {cep.complemento && <span>Complemento: {cep.complemento}</span>}{' '}
+          {/* Verifica se 'cep.complemento existe se não ele não renderiza' */}
+          <span>Bairro: {cep.bairro}</span>
           <span>
             {cep.localidade} - {cep.uf}
           </span>
